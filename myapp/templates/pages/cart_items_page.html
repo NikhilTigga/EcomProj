@@ -1,0 +1,155 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block title %}Cart Page{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <!-- Left Side - Cart Items -->
+        <div class="col-md-8">
+
+            {% for p in cart_items %}
+
+            <div class="row mt-2 border p-2 cart-item"
+                 data-price="{{ p.product.price }}"
+                 data-quantity="{{ p.quantity }}">
+
+                <div class="col-md-4">
+                    <img src="{{ p.product.product_image.url }}"
+                         alt="product_image"
+                         class="img-fluid">
+                </div>
+
+                <div class="col-md-8">
+
+                    <h5>{{ p.product.name }}</h5>
+
+                    <p>{{ p.product.desc }}</p>
+
+                    <p>
+                        Price: ₹{{ p.product.price }}
+                    </p>
+
+                    <div class="d-flex align-items-center gap-2">
+
+                        <form method="post"
+                              action="{% url 'update_cart_item_quantity' p.id 'decrease' %}">
+                            {% csrf_token %}
+
+                            <button class="btn btn-danger btn-sm"
+                                    type="submit">
+                                -
+                            </button>
+                        </form>
+
+                        <span>
+                            <strong>{{ p.quantity }}</strong>
+                        </span>
+
+                        <form method="post"
+                              action="{% url 'update_cart_item_quantity' p.id 'increase' %}">
+                            {% csrf_token %}
+
+                            <button class="btn btn-success btn-sm"
+                                    type="submit">
+                                +
+                            </button>
+                        </form>
+
+                    </div>
+
+                    <button class="btn btn-success mt-2">
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- Right Side - Product Bill -->
+        <div class="col-md-4">
+
+            <div class="card p-3 sticky-top">
+
+                <h3>Product Bill</h3>
+
+                <hr>
+
+                <p>
+                    Total Items:
+                    {{ cart_items|length }}
+                </p>
+
+                <p>
+                    Subtotal:
+                    ₹<span id="subtotal">0.00</span>
+                </p>
+
+                <p>
+                    Delivery Charge:
+                    ₹<span id="delivery-charge">50.00</span>
+                </p>
+
+                <hr>
+
+                <h5>
+                    Total:
+                    ₹<span id="total">0.00</span>
+                </h5>
+
+                <button class="btn btn-primary w-100">
+                    Proceed to Checkout
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    let subtotal = 0;
+    // Get every cart item
+    document.querySelectorAll(".cart-item").forEach(function(item) {
+        // Get price
+        let price = parseFloat(item.dataset.price);
+        // Get quantity
+        let quantity = parseInt(item.dataset.quantity);
+
+        // Calculate product subtotal
+        subtotal += price * quantity;
+    });
+
+    // Delivery charge
+    let deliveryCharge = 50;
+    // Calculate total
+    let total = subtotal + deliveryCharge;
+
+
+    // Show subtotal
+    document.getElementById("subtotal").innerText =
+        subtotal.toFixed(2);
+
+
+    // Show total
+    document.getElementById("total").innerText =
+        total.toFixed(2);
+
+});
+
+</script>
+
+{% endblock content %}

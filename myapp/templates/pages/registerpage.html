@@ -1,0 +1,126 @@
+
+ {% extends 'pages/base.html' %}
+ {% load static %}
+
+ {% block title %} Register Page{% endblock title %} 
+
+ {% block content %}
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            background:#f4f4f4;
+        }
+
+        .register-container{
+            width:400px;
+            background:#fff;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .register-container h2{
+            text-align:center;
+            margin-bottom:20px;
+            color:#333;
+        }
+
+        .form-group{
+            margin-bottom:15px;
+        }
+
+        .form-group label{
+            display:block;
+            margin-bottom:5px;
+            color:#555;
+            font-weight:bold;
+        }
+
+        .form-group input{
+            width:100%;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            outline:none;
+        }
+
+        .form-group input:focus{
+            border-color:#007bff;
+        }
+
+        .btn-register{
+            width:100%;
+            padding:12px;
+            background:#28a745;
+            color:white;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        .btn-register:hover{
+            background:#218838;
+        }
+
+        .login-link{
+            text-align:center;
+            margin-top:15px;
+        }
+
+        .login-link a{
+            text-decoration:none;
+            color:#007bff;
+        }
+
+        .login-link a:hover{
+            text-decoration:underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Create Account</h2>
+
+        <form action="#" method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="username">User Name</label>
+                <input type="text" id="username" name="username" placeholder="Enter User Name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email Address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+            </div>
+
+            <button type="submit" class="btn-register">
+                Register
+            </button>
+
+        </form>
+
+        <div class="login-link">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </div>
+    </div>
+{% endblock content %}

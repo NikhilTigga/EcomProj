@@ -1,0 +1,100 @@
+
+{% extends 'pages/base.html' %}
+{% load static %}
+{% block title %} Login Page {% endblock title %}
+
+{% block content %}
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body{
+        
+        align-items:center;
+        height:100vh;
+        background:#f4f4f4;
+    }
+
+    .login-container{
+        background:#fff;
+        padding:30px;
+        border-radius:10px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        width:350px;
+    }
+
+    .login-container h2{
+        text-align:center;
+        margin-bottom:20px;
+        color:#333;
+    }
+
+    .form-group{
+        margin-bottom:15px;
+    }
+
+    .form-group label{
+        display:block;
+        margin-bottom:5px;
+        color:#555;
+    }
+
+    .form-group input{
+        width:100%;
+        padding:10px;
+        border:1px solid #ccc;
+        border-radius:5px;
+        outline:none;
+    }
+
+    .form-group input:focus{
+        border-color:#007bff;
+    }
+
+    .btn-login{
+        width:100%;
+        padding:10px;
+        background:#007bff;
+        color:white;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+        font-size:16px;
+    }
+
+    .btn-login:hover{
+        background:#0056b3;
+    }
+</style>
+
+
+<div class="login-container">
+    <h2>Login</h2>
+    
+    <form action="#" method="post">
+
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter Username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter Password" required>
+        </div>
+
+        <button type="submit" class="btn-login">Login</button>
+
+        <a href="{% url 'Register_page' %}">Register</a>
+
+        <a href="{% url 'forgot_password_page' %}"> Forget Password</a>
+    </form>
+</div>
+
+{% endblock content %}
