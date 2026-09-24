@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['ecomproj-d7ae.onrender.com']
 
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://ecomproj-d7ae.onrender.com",
+]
+
 # Application definition
 
 INSTALLED_APPS = [
